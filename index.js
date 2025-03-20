@@ -4,6 +4,7 @@ function fetchBooks() {
   .then((response) => response.json())
   .then((books) => renderBooks(books))
   .catch((error) => console.log(error));
+
 }
 
 function renderBooks(books) {
