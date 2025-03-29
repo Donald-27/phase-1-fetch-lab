@@ -1,29 +1,34 @@
+// Function to fetch books from the Game of Thrones API
 function fetchBooks() {
-  // To pass the tests, don't forget to return your fetch!
-
-    return fetch("https://anapioficeandfire.com/api/books")
-      .then((resp) => resp.json())  
-      .then((json) => renderBooks(json));
-      renderBooks(json);  
-  }
-   
-
-
-function renderBooks(books) {
-  const main = document.querySelector('main');
-  books.forEach(book => {
-    const h2 = document.createElement('h2');
-    h2.innerHTML = book.name;
-    main.appendChild(h2);
-  });
+  // Fetch request to the Game of Thrones API
+  return fetch("https://anapioficeandfire.com/api/books")
+    .then((response) => response.json()) // Convert the response to JSON
+    .then((data) => {
+      // Call renderBooks function and pass the data as an argument
+      renderBooks(data);
+    })
+    .catch((error) => {
+      console.error("Error fetching books:", error);
+    });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Function to render book titles into the DOM
+function renderBooks(books) {
+  const mainElement = document.querySelector("main");
+
+  // Create a list of book titles
+  const bookList = document.createElement("ul");
+  books.forEach((book) => {
+    const bookItem = document.createElement("li");
+    bookItem.textContent = book.name; // Display the name of each book
+    bookList.appendChild(bookItem);
+  });
+
+  // Append the list to the main element in the DOM
+  mainElement.appendChild(bookList);
+}
+
+// Call fetchBooks() when the page loads
+document.addEventListener("DOMContentLoaded", () => {
   fetchBooks();
 });
-
-
-
-fetch("https://anapioficeandfire.com/api/books")
-.then((resp) => resp.json())
-.then((json) => console.log(json))
